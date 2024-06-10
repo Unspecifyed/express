@@ -17,7 +17,7 @@ const getAllTrips = async (req, res) => {
     }
 };
 
-// Controller to retrieve a single trip by ID
+// Controller to retrieve a single trip by ID aa
 const getTripById = async (req, res) => {
     try {
         const trip = await Trip.findById(req.params.id); // Retrieve trip by ID from the database
