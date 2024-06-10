@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Trip = require('./travlr');
-const tripsData = require('../data/trips.json');
+const tripsData = require('../../app_server/data/trips.json');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/travlr', { useNewUrlParser: true, useUnifiedTopology: true });

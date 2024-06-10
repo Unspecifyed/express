@@ -19,8 +19,8 @@
                             <ul id="sites">
                                 {{#each destinations}}
                                 <li>
-                                    <a href="/travel"><img src="{{this.image}}" alt="Img"></a>
-                                    <h2><a href="/travel">{{this.name}}</a></h2>
+                                    <a href="/travel/{{this.code}}"><img src="{{this.image}}" alt="Img"></a> <!-- Modify href to include trip code -->
+                                    <h2><a href="/travel/{{this.code}}">{{this.name}}</a></h2> <!-- Modify href to include trip code -->
                                     {{#each this.description}}
                                     <p>{{this}}</p>
                                     {{/each}}
