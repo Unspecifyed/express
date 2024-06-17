@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TripListingComponent } from './trip-listing/trip-listing.component';  // Adjust the path as needed
+import { trips } from './data/trips';
+
 
 @Component({
   selector: 'app-root',

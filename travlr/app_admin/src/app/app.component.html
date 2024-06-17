@@ -170,18 +170,29 @@
   <div class="content">
     <div class="left-side">
       <img src="your-logo.png" alt="Project Logo" class="angular-logo">
-      <h1>Welcome to My Angular Project</h1>
-      <p>Your project description goes here. Briefly explain the purpose and key features of your application.</p>
+      <h1>Welcome to Francis Project</h1>
+      <p>didn't get it to pull for data sadage</p>
     </div>
     <div class="divider"></div>
     <div class="right-side">
       <div class="pill-group">
-        <a href="#feature1" class="pill">Feature 1</a>
-        <a href="#feature2" class="pill">Feature 2</a>
-        <a href="#feature3" class="pill">Feature 3</a>
-        <a href="#feature4" class="pill">Feature 4</a>
-        <a href="#feature5" class="pill">Feature 5</a>
+        <a href="#feature1" class="pill">trip 1</a>
+        <a href="#feature2" class="pill">trip 2</a>
+        <a href="#feature3" class="pill">trip 3</a>
+        <a href="#feature4" class="pill">trip 4</a>
+        <a href="#feature5" class="pill">trip 5</a>
       </div>
+            <div class="trip-list">
+              <div *ngFor="let trip of trips" class="trip-item">
+                <img [src]="trip.image" alt="Trip Image">
+                <h2>{{ trip.name }}</h2>
+                <p>{{ trip.description }}</p>
+                <p><strong>Length:</strong> {{ trip.length }}</p>
+                <p><strong>Start:</strong> {{ trip.start }}</p>
+                <p><strong>Resort:</strong> {{ trip.resort }}</p>
+                <p><strong>Price per Person:</strong> {{ trip.perPerson }}</p>
+              </div>
+            </div>
       <div class="social-links">
         <a href="https://twitter.com/yourprofile" target="_blank">
           <svg width="24" height="24" fill="currentColor">
