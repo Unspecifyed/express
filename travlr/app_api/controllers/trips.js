@@ -1,3 +1,5 @@
+// app_api/controllers/trips.js
+
 const mongoose = require('mongoose');
 const Trip = mongoose.model('Trip');
 
