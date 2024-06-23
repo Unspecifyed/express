@@ -1,12 +1,41 @@
-import { Component } from '@angular/core';
+// app_admin/src/app/login/login.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  public formError: string = '';
+  public credentials = {
+    email: '',
+    password: ''
+  };
 
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) { }
+
+  ngOnInit() { }
+
+  public onLoginSubmit(event: Event): void {
+    event.preventDefault();
+    this.formError = '';
+    if (!this.credentials.email || !this.credentials.password) {
+      this.formError = 'All fields are required, please try again';
+    } else {
+      this.doLogin();
+    }
+  }
+
+  private doLogin(): void {
+    this.authenticationService.login(this.credentials)
+      .then(() => this.router.navigateByUrl('/dashboard'))
+      .catch((message: string) => this.formError = message);
+  }
 }

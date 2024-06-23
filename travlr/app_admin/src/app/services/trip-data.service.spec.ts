@@ -1,3 +1,5 @@
+// app_admin/src/app/services/trip-data.service.spec.ts
+
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TripDataService } from './trip-data.service';
@@ -8,11 +10,11 @@ import { AuthResponse } from '../models/authresponse';
 describe('TripDataService', () => {
   let service: TripDataService;
   let httpMock: HttpTestingController;
-  let storageMock: Storage;
+  let storageMock: jasmine.SpyObj<Storage>;
 
   beforeEach(() => {
     storageMock = jasmine.createSpyObj('Storage', ['getItem', 'setItem', 'removeItem']);
-    
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
@@ -20,7 +22,7 @@ describe('TripDataService', () => {
         { provide: BROWSER_STORAGE, useValue: storageMock }
       ]
     });
-    
+
     service = TestBed.inject(TripDataService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -33,12 +35,12 @@ describe('TripDataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should login and return an AuthResponse', async () => {
-    const user: User = { email: 'test@test.com', name: 'Test User' };
+  it('should login and set token', async () => {
+    const credentials = { email: 'test@test.com', password: 'password' };
     const authResponse: AuthResponse = { token: 'test-token' };
 
-    service.login(user).then(response => {
-      expect(response.token).toBe(authResponse.token);
+    service.login(credentials).then(() => {
+      expect(storageMock.setItem).toHaveBeenCalledWith('travlr-token', authResponse.token);
     });
 
     const req = httpMock.expectOne('https://your-api-url.com/api/login');
@@ -46,12 +48,12 @@ describe('TripDataService', () => {
     req.flush(authResponse);
   });
 
-  it('should register and return an AuthResponse', async () => {
-    const user: User = { email: 'test@test.com', name: 'Test User' };
+  it('should register and set token', async () => {
+    const user: User = { email: 'test@test.com', password: 'password', name: 'Test User' };
     const authResponse: AuthResponse = { token: 'test-token' };
 
-    service.register(user).then(response => {
-      expect(response.token).toBe(authResponse.token);
+    service.register(user).then(() => {
+      expect(storageMock.setItem).toHaveBeenCalledWith('travlr-token', authResponse.token);
     });
 
     const req = httpMock.expectOne('https://your-api-url.com/api/register');

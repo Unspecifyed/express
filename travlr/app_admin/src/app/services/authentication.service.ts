@@ -5,8 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BROWSER_STORAGE } from './storage';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/authresponse';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,21 +22,26 @@ export class AuthenticationService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  public login(user: User): Promise<AuthResponse> {
-    return this.makeAuthApiCall('login', user);
+  public login(credentials: { email: string; password: string }): Promise<void> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).toPromise()
+      .then(response => {
+        if (response && response.token) {
+          this.storage.setItem('travlr-token', response.token);
+        } else {
+          throw new Error('Login failed: No token received');
+        }
+      });
   }
 
-  public register(user: User): Promise<AuthResponse> {
-    return this.makeAuthApiCall('register', user);
-  }
-
-  private async makeAuthApiCall(urlPath: string, user: User): Promise<AuthResponse> {
-    const url: string = `${this.apiUrl}/${urlPath}`;
-    const response = await this.http.post<AuthResponse>(url, user).toPromise();
-    if (!response) {
-      throw new Error(`${urlPath.charAt(0).toUpperCase() + urlPath.slice(1)} failed: no response from server`);
-    }
-    return response;
+  public register(user: User): Promise<void> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, user).toPromise()
+      .then(response => {
+        if (response && response.token) {
+          this.storage.setItem('travlr-token', response.token);
+        } else {
+          throw new Error('Registration failed: No token received');
+        }
+      });
   }
 
   public isLoggedIn(): boolean {

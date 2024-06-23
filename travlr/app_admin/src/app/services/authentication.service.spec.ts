@@ -14,7 +14,7 @@ describe('AuthenticationService', () => {
 
   beforeEach(() => {
     storageMock = jasmine.createSpyObj('Storage', ['getItem', 'setItem', 'removeItem']);
-    
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
@@ -22,7 +22,7 @@ describe('AuthenticationService', () => {
         { provide: BROWSER_STORAGE, useValue: storageMock }
       ]
     });
-    
+
     service = TestBed.inject(AuthenticationService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -35,12 +35,12 @@ describe('AuthenticationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should login and return an AuthResponse', async () => {
-    const user: User = { email: 'test@test.com', name: 'Test User' };
+  it('should login and set token', async () => {
+    const credentials = { email: 'test@test.com', password: 'password' };
     const authResponse: AuthResponse = { token: 'test-token' };
 
-    service.login(user).then(response => {
-      expect(response.token).toBe(authResponse.token);
+    service.login(credentials).then(() => {
+      expect(storageMock.setItem).toHaveBeenCalledWith('travlr-token', authResponse.token);
     });
 
     const req = httpMock.expectOne('https://your-api-url.com/api/login');
@@ -48,12 +48,12 @@ describe('AuthenticationService', () => {
     req.flush(authResponse);
   });
 
-  it('should register and return an AuthResponse', async () => {
-    const user: User = { email: 'test@test.com', name: 'Test User' };
+  it('should register and set token', async () => {
+    const user: User = { email: 'test@test.com', password: 'password', name: 'Test User' };
     const authResponse: AuthResponse = { token: 'test-token' };
 
-    service.register(user).then(response => {
-      expect(response.token).toBe(authResponse.token);
+    service.register(user).then(() => {
+      expect(storageMock.setItem).toHaveBeenCalledWith('travlr-token', authResponse.token);
     });
 
     const req = httpMock.expectOne('https://your-api-url.com/api/register');

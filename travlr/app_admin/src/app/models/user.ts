@@ -1,11 +1,13 @@
-// app_admin/scr/app/models/user.ts
+// app_admin/src/app/models/user.ts
 export class User {
     email: string;
-    name: string;
+    name?: string;
+    password?: string;
   
-    constructor(email: string, name: string) {
+    constructor(email: string, name?: string, password?: string) {
       this.email = email;
       this.name = name;
+      this.password = password;
     }
   }
   

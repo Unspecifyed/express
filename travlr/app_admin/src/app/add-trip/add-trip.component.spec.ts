@@ -1,20 +1,20 @@
-// app_admin/src/app/login/login.component.spec.ts
+// app_admin/src/app/add-trip/add-trip.component.spec.ts
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
+import { AddTripComponent } from './add-trip.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('AddTripComponent', () => {
+  let component: AddTripComponent;
+  let fixture: ComponentFixture<AddTripComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent]
+      imports: [AddTripComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(AddTripComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

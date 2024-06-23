@@ -1,0 +1,13 @@
+/* Add any specific styles for the login component */
+.row {
+    margin-top: 50px;
+  }
+  
+  .alert {
+    margin-top: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  

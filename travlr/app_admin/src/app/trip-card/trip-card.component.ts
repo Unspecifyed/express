@@ -1,16 +1,14 @@
-// app_admin/src/app/list-trips/list-trips.component.ts
+// app_admin/src/app/trip-card/trip-card.component.ts
 
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
-  selector: 'app-list-trips',
-  standalone: true,
-  imports: [],
-  templateUrl: './list-trips.component.html',
-  styleUrls: ['./list-trips.component.css']
+  selector: 'app-trip-card',
+  templateUrl: './trip-card.component.html',
+  styleUrls: ['./trip-card.component.css']
 })
-export class ListTripsComponent {
+export class TripCardComponent {
   constructor(private authenticationService: AuthenticationService) {}
 
   public isLoggedIn(): boolean {
