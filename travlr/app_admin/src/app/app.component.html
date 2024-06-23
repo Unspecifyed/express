@@ -1,9 +1,18 @@
 <!-- app_admin/src/app/app.component.html -->
 <app-navbar></app-navbar>
-<div *ngFor="let trip of trips" class="trip-item">
-  <!-- Trip content here -->
+<div class="trip-list">
+  <div *ngFor="let trip of trips" class="trip-item">
+    <img [src]="trip.image" alt="Trip Image">
+    <h2>{{ trip.name }}</h2>
+    <p>{{ trip.description }}</p>
+    <p><strong>Length:</strong> {{ trip.length }}</p>
+    <p><strong>Start:</strong> {{ trip.start }}</p>
+    <p><strong>Resort:</strong> {{ trip.resort }}</p>
+    <p><strong>Price per Person:</strong> {{ trip.perPerson }}</p>
+  </div>
 </div>
 <router-outlet></router-outlet>
+
 
 <!-- Include styles and other elements as needed -->
 

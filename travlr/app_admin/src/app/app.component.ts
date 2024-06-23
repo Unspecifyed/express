@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { ListTripsComponent } from './list-trips/list-trips.component';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoggingService } from './logging.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit {
   title = 'Francis';
   trips: any[] = []; // Define the trips property
 
+  constructor(private logger: LoggingService) {}
+
   ngOnInit() {
+    this.logger.log('AppComponent initialized');
     // Initialize the trips property with sample data or fetch it from a service
     this.trips = [
       {
